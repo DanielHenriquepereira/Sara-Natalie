@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SARA & Natalie </title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background-color: #000000;
+      color: white;
+      overflow-x: hidden;
+    }
+
+    header {
+      padding: 20px;
+      text-align: center;
+    }
+
+    /* MUSICS */
+    .music-player {
+      background-color: #e91e63;
+      color: white;
+      width: 90%;
+      max-width: 300px;
+      margin: 20px auto;
+      padding: 10px 15px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: sans-serif;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+
+    .music-player .cover {
+      width: 50px;
+      height: 50px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .music-player .info {
+      flex-grow: 1;
+    }
+
+    .music-player button {
+      background: white;
+      color: #e91e63;
+      border: none;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    /* Carrossel de imagens estilo slider */
+    .slider-container {
+      position: relative;
+      width: 90%;
+      max-width: 400px;
+      margin: 20px auto;
+      overflow: hidden;
+      border-radius: 20px;
+    }
+
+    .slider {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      width: 100%;
+    }
+
+    .slider img {
+      min-width: 100%;
+      height: auto;
+      max-height: 400px;
+      object-fit: cover;
+      border-radius: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 2em;
+    }
+
+    hr {
+      width: 60%;
+      margin: 20px auto;
+      border: 1px solid white;
+    }
+
+    .declaration {
+      max-width: 90%;
+      margin: 0 auto;
+      text-align: center;
+      font-size: 2rem;
+      padding: 20px;
+    }
+
+    /* ANIMAÇÃO DE CORAÇÕES */
+    .heart {
+      position: fixed;
+      top: -20px;
+      font-size: 24px;
+      color: white;
+      animation: fall linear;
+      opacity: 0.8;
+      z-index: 0;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Música -->
+  <div class="music-player">
+    <img src="lacapa.png" alt="Capa" class="cover">
+    <div class="info">
+      <strong>Cabeça de Pastel Amaçado</strong>
+      <p>Sara & Natalie</p>
+      <small id="duration">00:00</small>
+    </div>
+    <button onclick="toggleMusic()" id="playPauseBtn">▶️</button>
+    <audio id="audio" src="oriente.mp3"></audio>
+  </div>
+
+  <!-- Carrossel com troca automática -->
+  <div class="slider-container">
+    <div class="slider" id="slider">
+      <img src="img01.jpeg" alt="Foto 1">
+      <img src="img02.jpeg" alt="Foto 2">
+      <img src="img03.jpeg" alt="Foto 3">
+      <img src="img04.jpeg" alt="Foto 4">
+      <img src="img05.jpeg" alt="Foto 5">
+      <img src="img06.jpeg" alt="Foto 6">
+      <img src="img07.jpeg" alt="Foto 7">
+      <img src="img08.jpeg" alt="Foto 8">
+      <img src="img09.jpeg" alt="Foto 9">
+    </div>
+  </div>
+
+  <!-- Título -->
+  <h1>🤗Dois PACOTINHOS 🦄</h1>
+
+  <hr>
+
+  <!-- Declaração -->
+  <div class="declaration">
+  Natalie:
+
+  - Deixa minha irmã em paz Daniel,<br>
+    Kelly Bate a Cabeça na parede. <br>
+  Cabeça de Capivara
+  Cabeça de parede
+
+ <br>
+ 
+ Sarah:
+
+  - Vai ganhar de Voce nas cocegas.<br>
+
+  SAI DA MINHA MENTE Kelly:)
+  </div>
+
+  <!-- Script -->
+  <script>
+    function toggleMusic() {
+      const audio = document.getElementById("audio");
+      if (audio.paused) {
+        audio.play();
+        playPauseBtn.textContent = "⏸️";
+      } else {
+        audio.pause();
+        playPauseBtn.textContent = "▶️";
+      }
+    }
+
+   
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerText = "🥰🦄";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+
+   
+    }
+
+ 
+
+   
+   
+
+    setInterval(createHeart, 300);
+
+    // Carrossel automático
+    let index = 0;
+    const slider = document.getElementById("slider");
+    const images = slider.querySelectorAll("img");
+
+    function showNextImage() {
+      index = (index + 1) % images.length;
+      slider.style.transform = `translateX(-${index * 100}%)`;
+    }
+
+    setInterval(showNextImage, 3000); // muda a cada 3 segundos
+
+    const audio = document.getElementById("audio");
+    const playPauseBtn = document.getElementById("playPauseBtn");
+    const durationText = document.getElementById("duration");
+
+    // Mostrar tempo total ao carregar
+    audio.onloadedmetadata = () => {
+      const mins = Math.floor(audio.duration / 60);
+      const secs = Math.floor(audio.duration % 60).toString().padStart(2, '0');
+      durationText.textContent = `${mins}:${secs}`;
+    };
+  </script>
+
+</body>
+</html>
